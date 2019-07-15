@@ -11,6 +11,10 @@ RUN touch /etc/mysql/conf.d/galera.cnf \
     && chown mysql.mysql /etc/mysql/conf.d/galera.cnf \
     && chown mysql.mysql /docker-entrypoint-initdb.d/*.sql
 
+# set timezone to KST 
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
 # we expose all Cluster related Ports
 # 3306: default MySQL/MariaDB listening port
 # 4444: for State Snapshot Transfers
