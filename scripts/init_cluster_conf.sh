@@ -35,6 +35,12 @@ cat <<EOF > $config_file
 #wsrep-sst-receive-address = $HOSTNAME
 #wsrep-node-incoming-address = $HOSTNAME
 
+character-set-client-handshake = FALSE
+collation-server = utf8mb4_unicode_ci
+init-connect = 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+character-set-server = utf8mb4
+
+
 # Cluster settings
 wsrep-on=ON
 wsrep-cluster-name = "$CLUSTER_NAME" 
@@ -49,23 +55,10 @@ default-storage-engine = InnoDB
 innodb-doublewrite = 1 
 innodb-autoinc-lock-mode = 2 
 innodb-flush-log-at-trx-commit = 2 
-EOF
 
-
-
-# we create a character-set config
-config_file2="/etc/mysql/conf.d/character-set.cnf"
-
-cat <<EOF > $config_file2
 [client]
 default-character-set = utf8mb4
 
 [mysql]
 default-character-set = utf8mb4
-
-[mysqld]
-character-set-client-handshake = FALSE
-collation-server = utf8mb4_unicode_ci
-init-connect = 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
-character-set-server = utf8mb4
 EOF
